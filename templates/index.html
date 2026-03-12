@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Support Chatbot</title>
+<link rel="stylesheet" href="/static/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="chat-wrapper">
+
+<div class="chat-header">
+🎓 Aurora Student Chatbot
+</div>
+
+<div id="chatbox" class="chatbox"></div>
+
+<div class="typing" id="typing">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<div class="input-area">
+<input type="text" id="message" placeholder="Ask anything about the college..." onkeypress="handleKey(event)">
+<button onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+
+<script>
+function handleKey(event){
+    if(event.key === "Enter"){
+        sendMessage();
+    }
+}
+
+function sendMessage(){
+    let msg = document.getElementById("message").value;
+    if(msg.trim() === "") return;
+
+    let chatbox = document.getElementById("chatbox");
+
+    // User message
+    chatbox.innerHTML += `
+    <div class="message user">
+        <div class="avatar">👤</div>
+        <div class="text">${msg}</div>
+    </div>
+    `;
+
+    document.getElementById("message").value = "";
+    chatbox.scrollTop = chatbox.scrollHeight;
+
+    // Show typing dots
+    document.getElementById("typing").style.display = "flex";
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: msg})
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("typing").style.display = "none";
+
+        chatbox.innerHTML += `
+        <div class="message bot">
+            <div class="avatar">🤖</div>
+            <div class="text">${data.reply}</div>
+        </div>
+        `;
+
+        chatbox.scrollTop = chatbox.scrollHeight;
+    });
+}
+</script>
+
+</body>
+</html>
