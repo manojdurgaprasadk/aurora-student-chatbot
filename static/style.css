@@ -4,18 +4,17 @@
     width: 95%;
 }
 
-.chatbox {
+.chat-container {
     width: 100%;
 }
 
 input {
-    width: 80%;
+    width: 70%;
 }
 
 button {
-    width: 18%;
+    width: 28%;
 }
-
 }
 .chat-container{
 display:flex;
@@ -23,6 +22,11 @@ flex-direction:column;
 height:100vh;
 }
 
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+}
 .messages{
 flex:1;
 overflow-y:auto;
