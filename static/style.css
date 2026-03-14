@@ -1,3 +1,36 @@
+@media (max-width: 768px) {
+
+.container {
+    width: 95%;
+}
+
+.chatbox {
+    width: 100%;
+}
+
+input {
+    width: 80%;
+}
+
+button {
+    width: 18%;
+}
+
+}
+.chat-container{
+display:flex;
+flex-direction:column;
+height:100vh;
+}
+
+.messages{
+flex:1;
+overflow-y:auto;
+}
+
+.input-area{
+display:flex;
+}
 /* Fonts and body */
 
 body{
